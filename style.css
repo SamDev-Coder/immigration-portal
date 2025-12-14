@@ -1,0 +1,163 @@
+/* RESET & BODY */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+}
+
+/* BODY BACKGROUND IMAGE */
+body {
+  background: url("images/Immigration-NIS.jpg") no-repeat center center fixed;
+  background-size: cover;
+  padding: 20px 15px;
+  color: #fff;
+}
+
+
+/* LOGO ABOVE HEADER */
+.logo-top {
+  text-align: center;
+  margin-bottom: 10px; /* smaller space to move logo closer to text */
+}
+
+.logo-top img {
+  width: 100px;       /* adjust as needed */
+  height: 100px;      /* same as width for perfect circle */
+  border-radius: 50%; /* make it circular */
+  display: inline-block;
+  object-fit: cover;  /* ensure it fits nicely inside circle */
+  border: 3px solid #FFD700; /* optional gold border for style */
+}
+
+
+/* SUCCESS POPUP STYLING */
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #006400; /* dark green */
+  color: #fff;
+  padding: 20px 30px;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  z-index: 1000;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+/* SHOW POPUP */
+.popup.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+
+
+/* HEADER */
+.main-header {
+  text-align: center;
+  padding: 100px 20px 40px;
+  background: rgba(0,0,0,0.4); /* dark overlay for readability */
+}
+
+.main-header h1 {
+  color: #FFD700; /* gold text */
+  font-size: 48px;
+  font-weight: 900;
+  opacity: 0;
+  transform: translateY(-50px); /* start slightly above */
+  animation: slideFadeIn 2s ease forwards;
+  animation-delay: 0.5s; /* optional delay for effect */
+}
+
+/* SLIDE + FADE IN */
+@keyframes slideFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* CONTAINER */
+.container {
+  max-width: 480px;
+  margin: auto;
+  background: rgba(255,255,255,0.95); /* white semi-transparent */
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,.3);
+  padding: 30px;
+  color: #1b1f3b;
+}
+
+/* FORM BOX */
+.form-box h2 {
+  text-align: center;
+  color: #006400; /* dark green accent */
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.input-group {
+  margin-bottom: 16px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.input-group input,
+.input-group select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccd1d9;
+  font-size: 14px;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+  border-color: #006400;
+  outline: none;
+}
+
+/* BUTTON */
+.btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #006400, #228B22);
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0,100,0,0.35);
+}
+
+/* FOOTER */
+.footer-text {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 12px;
+  color: #555;
+}

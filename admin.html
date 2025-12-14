@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Immigration Admin Dashboard</title>
+<style>
+  body {
+    font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+    background: linear-gradient(135deg, #00bcd4, #009688); /* Cyan/Teal gradient */
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+  }
+
+  h1 {
+    text-align: center;
+    padding: 20px 0;
+    color: #fff;
+    font-size: 32px;
+    letter-spacing: 1px;
+  }
+
+  .table-container {
+    max-width: 1200px;
+    margin: 20px auto 50px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 900px;
+  }
+
+  th, td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+  }
+
+  th {
+    background-color: #009688;
+    color: #fff;
+  }
+
+  .approved { color: green; font-weight: bold; }
+  .rejected { color: red; font-weight: bold; }
+  .pending { color: orange; font-weight: bold; }
+
+  button {
+    padding: 6px 12px;
+    margin: 2px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 13px;
+  }
+  button:hover { opacity: 0.85; }
+  .approve { background-color: #28a745; color: #fff; }
+  .reject { background-color: #dc3545; color: #fff; }
+  .delete { background-color: #ffc107; color: #000; }
+
+  @media(max-width: 768px) {
+    table, thead, tbody, th, td, tr { display: block; }
+    th { text-align: left; }
+    td { text-align: right; padding-left: 50%; position: relative; }
+    td::before {
+      content: attr(data-label);
+      position: absolute;
+      left: 15px;
+      font-weight: bold;
+      text-align: left;
+    }
+  }
+</style>
+</head>
+<body>
+
+<h1>Nigeria Immigration Service Admin Dashboard</h1>
+
+<div class="table-container">
+<table>
+    <thead>
+        <tr>
+            <th>Full Name</th>
+            <th>Replacement No</th>
+            <th>NIN</th>
+            <th>State</th>
+            <th>LGA</th>
+            <th>Next of Kin</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Qualification</th>
+            <th>Marital Status</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody id="adminData">
+        <!-- Data will load here -->
+    </tbody>
+</table>
+</div>
+
+<script>
+// ===== LOAD ADMIN TABLE =====
+function loadAdminTable() {
+    let volunteers = JSON.parse(localStorage.getItem("volunteers")) || [];
+    let tbody = document.getElementById("adminData");
+    tbody.innerHTML = "";
+
+    if(volunteers.length === 0){
+        tbody.innerHTML = `<tr><td colspan="12" style="text-align:center;">No applications submitted</td></tr>`;
+        return;
+    }
+
+    volunteers.forEach((v, i) => {
+        tbody.innerHTML += `
+            <tr>
+                <td data-label="Full Name">${v.fullname}</td>
+                <td data-label="Replacement No">${v.passportNo}</td>
+                <td data-label="NIN">${v.nin}</td>
+                <td data-label="State">${v.state}</td>
+                <td data-label="LGA">${v.lga}</td>
+                <td data-label="Next of Kin">${v.nextOfKin}</td>
+                <td data-label="Email">${v.email}</td>
+                <td data-label="Address">${v.address}</td>
+                <td data-label="Qualification">${v.qualification}</td>
+                <td data-label="Marital Status">${v.marital}</td>
+                <td data-label="Status" class="${v.status.toLowerCase()}">${v.status}</td>
+                <td data-label="Actions">
+                    <button class="approve" onclick="updateStatus(${i}, 'Approved')">Approve</button>
+                    <button class="reject" onclick="updateStatus(${i}, 'Rejected')">Reject</button>
+                    <button class="delete" onclick="deleteApplicant(${i})">Delete</button>
+                </td>
+            </tr>
+        `;
+    });
+}
+
+// ===== UPDATE STATUS =====
+function updateStatus(index, status){
+    let volunteers = JSON.parse(localStorage.getItem("volunteers")) || [];
+    volunteers[index].status = status;
+    localStorage.setItem("volunteers", JSON.stringify(volunteers));
+    loadAdminTable();
+}
+
+// ===== DELETE APPLICANT =====
+function deleteApplicant(index){
+    let volunteers = JSON.parse(localStorage.getItem("volunteers")) || [];
+    volunteers.splice(index, 1);
+    localStorage.setItem("volunteers", JSON.stringify(volunteers));
+    loadAdminTable();
+}
+
+// ===== INIT =====
+document.addEventListener("DOMContentLoaded", loadAdminTable);
+</script>
+</body>
+</html>
